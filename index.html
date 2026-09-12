@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>買 Bria 還是 SeaLand n7 一年方案？</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bria vs SeaLand n7</title>
 <style>
 :root{--bg:#eef2f4;--card:#fff;--ink:#152028;--muted:#5b6b75;--line:#d5dee4;--buy:#1f6b4a;--sub:#2457c5;--warn:#9a3f14}
 *{box-sizing:border-box}body{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
@@ -16,7 +17,7 @@ label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:3px}input{w
 table{width:100%;border-collapse:collapse;font-size:.88rem}td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top}td.r{text-align:right;white-space:nowrap}.hint{margin:10px 0 0}.warn{color:var(--warn)}footer{padding:0 18px 28px;color:var(--muted);font-size:.78rem}
 </style></head><body>
 <header><h1>買 Bria 還是 SeaLand n7？</h1>
-<p class="lead">訂閱一側是 <b>SeaLand n7 一年方案</b>（預設月租 15,800 元、每公里 2.1 元），假設達到期後用同條件續約滿 10 年。Bria 車價 89.9 萬。</p></header>
+<p class="lead">訂閱一側是 <b>SeaLand n7 一年方案</b>（月租 15,800 元、每公里 2.1 元），假設一年一續約滿 10 年。Bria 車價 89.9 萬。</p></header>
 <main><form class="card" onsubmit="return run(event)">
 <h2>用車習慣</h2>
 <div class="row"><div><label>每年公里</label><input id="km" type="number" value="20000"></div><div><label>算幾年</label><input id="years" type="number" value="10" min="1" max="15"></div></div>
@@ -38,7 +39,7 @@ table{width:100%;border-collapse:collapse;font-size:.88rem}td{padding:6px 0;bord
 <table id="tbl"></table>
 <p class="hint" id="exit"></p>
 </section></main>
-<footer>試算不是購車建議。訂閱一側以 SeaLand n7 一年方案為準，假設保險保養含在月租，並以同條件一年一續約到第 10 年；實際續約價格與車款可能變更。電費、過路費、停車兩邊都加。</footer>
+<footer>試算不是購車建議。訂閱以 SeaLand n7 一年方案為準，一年一續約到第 10 年。</footer>
 <script>
 const $=id=>document.getElementById(id);
 const nn=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)?v:0};
@@ -60,15 +61,15 @@ const diff=subNet-buyNet;
 $('buyNet').textContent=money(buyNet);$('subNet').textContent=money(subNet);
 const v=$('verdict');
 if(diff>0){v.className='hint';v.textContent=years+'年、每年 '+kmY.toLocaleString('zh-TW')+'公里：買 Bria 大約少花 '+money(diff)+'（相對 SeaLand n7 一年方案續約）。買車平均一天 '+Math.round(buyNet/(years*365))+'元。';}
-else{v.className='hint warn';v.textContent=years+'年來看，SeaLand n7 一年方案較便宜約 '+money(-diff)+'。通常是里程低或持有年數短。';}
-const rows=[['Bria 車貸本息 / n7 月租',loanTotal,rentY],['n7 里程費 2.1元',0,kmFee],['保險＋牌燃稅',ins,0],['保養＋輪胎',maint,0],['換電池',bat,0],['電費',elec,elec],['過路費',toll,toll],['停車',park,park],['現金總攤',buyCash,subNet],['減殘值',-residual,0],['淨成本',buyNet,subNet]];
+else{v.className='hint warn';v.textContent=years+'年來看，SeaLand n7 一年方案較便宜約 '+money(-diff)+'。';}
+const rows=[['Bria 車貸 / n7 月租',loanTotal,rentY],['n7 里程費',0,kmFee],['保險稅',ins,0],['保養輪胎',maint,0],['換電池',bat,0],['電費',elec,elec],['過路費',toll,toll],['停車',park,park],['現金總攤',buyCash,subNet],['減殘值',-residual,0],['淨成本',buyNet,subNet]];
 $('tbl').innerHTML='<tr><td>項目</td><td class="r">買 Bria</td><td class="r">SeaLand n7</td></tr>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td class="r">'+money(r[1])+'</td><td class="r">'+money(r[2])+'</td></tr>').join('');
 const lines=[3,5,8].filter(y=>y<=years).map(y=>{
 const left=remain(nn('price'),nn('apr'),loanM,Math.min(y*12,loanM));
 const fire=y===3?400000:y===5?200000:0;
 const gap=Math.max(0,left-fire);
 const subPaid=nn('rent')*12*y+nn('perkm')*kmY*y;
-return y+'年後若車只值 '+money(fire)+'、還欠 '+money(left)+'：買車可能要補 '+money(gap)+'；n7 一年方案已付約 '+money(subPaid)+'。';
+return y+'年後若車只值 '+money(fire)+'、還欠 '+money(left)+'：買車可能要補 '+money(gap)+'；n7 已付約 '+money(subPaid)+'。';
 });
 $('exit').textContent=lines.join(' ');
 $('out').classList.add('show');$('out').scrollIntoView({behavior:'smooth'});return false;}
